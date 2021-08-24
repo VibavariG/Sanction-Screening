@@ -43,11 +43,11 @@
 
             <div class="col-lg-6 col-md-10 col-12 d-flex flex-column justify-content-center align-items-center">
                 <div class="hero-text">
-                    <h1 class="text-white" data-aos="fade-up">Get going to screen shady transactions.</h1>
+                    <h1 class="text-white" data-aos="fade-up">Get started with screening transactions.</h1>
                     <br>
                     <mat-form-field appearance="fill" color="accent">
                         <mat-label style="color: #fff;">Select File</mat-label>
-                        <ngx-mat-file-input [accept]="'.txt'" style="color: #fff;" (change)="fileInputChange(upload, 'colorChange', $event)" formControlName="requiredfile" placeholder="Basic Input" #upload required></ngx-mat-file-input>
+                        <ngx-mat-file-input [accept]="'.txt'" style="color: #fff;" (change)="fileInputChange(upload, 'colorChange', $event)" formControlName="requiredfile" placeholder="Basic Input" #upload required multiple></ngx-mat-file-input>
                         <mat-icon matSuffix style="color: #fff;">folder</mat-icon>
                     </mat-form-field>
                     <!-- <button (click)="onSubmit(upload)" routerLink="/filter" class="custom-btn btn-bg btn mt-3" data-aos="fade-up" data-aos-delay="100" style="margin-left: 40px; margin-top: -20px !important;" [disabled]="submitDisabled">Upload File</button> -->

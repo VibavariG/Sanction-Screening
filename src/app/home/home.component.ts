@@ -50,11 +50,12 @@ export class HomeComponent implements OnInit {
 
     // }
     console.log(this.selectedFiles.length)
-    for (let i=0; i< this.selectedFiles.length; i++) {
-      this.currentFile = this.selectedFiles.item(i);
-      console.log(this.currentFile);
-      this.service.uploadFile(this.currentFile).subscribe(res => { console.log(res) });
-    }
+    this.service.uploadFile(this.selectedFiles).subscribe(res => { console.log(res) });
+    // for (let i=0; i< this.selectedFiles.length; i++) {
+    //   this.currentFile = this.selectedFiles.item(i);
+    //   console.log(this.currentFile);
+    //   this.service.uploadFile(this.currentFile).subscribe(res => { console.log(res) });
+    // }
 
   }
 
