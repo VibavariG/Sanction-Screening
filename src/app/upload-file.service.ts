@@ -8,11 +8,17 @@ export class UploadFileService {
 
   constructor(private http: HttpClient) { }
 
-  uploadFile(sendFile){
+  uploadFile(sendFiles){
 
     const formData: FormData = new FormData();
 
-    formData.append('file', sendFile);
+    var length = sendFiles.length;
+    for(var i = 0; i<length; i++){
+      formData.append('files', sendFiles[i]);
+    }
+    //sendFiles.forEach((file) => { formData.append('files', file); });
+
+    //formData.append('files', sendFile);
 
     const req = new HttpRequest('POST', 'http://localhost:8086/readTransactions', formData, {
       reportProgress: true,
