@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Utility.FileUploadHelper;
@@ -31,9 +33,12 @@ import com.example.demo.repository.TransactionRepositoy;
 import com.example.demo.repository.ScreenFailRepository;
 import com.sun.el.parser.ParseException;
 import com.example.demo.Utility.Util;
+import info.debatty.java.stringsimilarity.Levenshtein;
 
 @Service
 public class TransactionService {
+	
+	Levenshtein l = new Levenshtein();
 
 	@Autowired
 	TransactionRepositoy transactionRepo;
@@ -49,7 +54,8 @@ public class TransactionService {
 
 	List<Transaction> transactions = new ArrayList<>();
 	List<Transaction> validtransactions = new ArrayList<>();
-	MultipartFile currentFile;
+	MultipartFile[] currentFile;
+	
 	
 
 	public void addTransactions() {
@@ -75,9 +81,35 @@ public class TransactionService {
 		}
 
 	}
+	
+	/*public ResponseEntity<ResponseMessage> uploadFiles(@RequestParam("files") MultipartFile[] files) {
+	    String message = "";
+	    try {
+	      List<String> fileNames = new ArrayList<>();
 
-	public ResponseEntity<String> FileUpload(MultipartFile file) {
-		currentFile = file;
+	      Arrays.asList(files).stream().forEach(file -> {
+	        storageService.save(file);
+	        fileNames.add(file.getOriginalFilename());
+	      });
+
+	      message = "Uploaded the files successfully: " + fileNames;*/
+
+	public ResponseEntity<String> FileUpload(@RequestParam("files") MultipartFile[] files) {
+		currentFile = files;
+		List<MultipartFile> fileNames = new ArrayList<>();
+
+	      Arrays.asList(files).stream().forEach(file -> {
+	        fileNames.add(file);
+	        System.out.println("Service:" +file.getOriginalFilename());
+	      });
+	      
+	      int length = fileNames.size();
+	      for(int i=0; i<length; i++) {
+	      
+	     
+		MultipartFile file = fileNames.get(i);
+		System.out.println("For loop: "+ file.getOriginalFilename());
+		
 		try {
 			if (file.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("UPLOAD A FILE");
@@ -213,14 +245,17 @@ public class TransactionService {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				return ResponseEntity.ok("FILE SUCCESSFULLY UPLOADED!");
 			}
+//				return ResponseEntity.ok("FILE SUCCESSFULLY UPLOADED!");
+//			}
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR. TRY AGAIN.");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR. TRY AGAIN.");
+		
+	   }
+	      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERROR. TRY AGAIN.");
 	}
 
 	public List<Transaction> displayAllTransactionsFromDB() {
@@ -242,7 +277,10 @@ public class TransactionService {
 			String payer = t.getPayerName();
 			String payee = t.getPayeeName();
 			for (SanctionList s : sanctionRepo.findAll()) {
-				if (payee.equalsIgnoreCase(s.getName()) || payer.equalsIgnoreCase(s.getName())) {
+				int limit1 = (int) (payee.length() * 0.2);
+				int limit2 = (int) (payer.length() * 0.2);
+				
+				if (l.distance(payee, s.getName()) <= limit1 || l.distance(payer, s.getName()) <= limit2) {
 					transactions.add(saveWithStatus(t, "Screen Fail"));
 				
 					ScreenFail sf = new ScreenFail();
@@ -268,7 +306,10 @@ public class TransactionService {
 		return transactions;
 	}
 	
-	public static void Move(MultipartFile multipart) {
+	public static void Move(MultipartFile[] multiparts) {
+		
+		for(int i=0; i<multiparts.length; i++){
+			MultipartFile multipart = multiparts[i];
 		File fileSrc = new File(multipart.getOriginalFilename());
 		FileOutputStream fos;
 		try {
@@ -315,7 +356,7 @@ public class TransactionService {
 		    System.out.println("Failed to delete the file.");
 		}
 		
-		
+	}
 		
 	}
 	

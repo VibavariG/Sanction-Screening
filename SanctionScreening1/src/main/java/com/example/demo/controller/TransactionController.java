@@ -34,8 +34,10 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/readTransactions")
-	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file){
-		return ts.FileUpload(file);
+	public ResponseEntity<String> uploadFile(@RequestParam("files") MultipartFile[] files){
+		for(int i=0; i<files.length; i++)
+			System.out.println(files[i].getOriginalFilename());
+		return ts.FileUpload(files);
 	}
 	
 //	@RequestMapping(value = "/readTransactions", method = RequestMethod.GET)
