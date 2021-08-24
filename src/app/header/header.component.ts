@@ -16,9 +16,6 @@ export class HeaderComponent implements OnInit {
     
   }
   
-  // onClickSubmit(data) {
-  //   alert("Entered Email id : " + data.upload);
-  // }
 
 
 
