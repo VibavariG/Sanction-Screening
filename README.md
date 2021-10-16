@@ -8,12 +8,9 @@ Manasi Bhandari: [@Manasidb](https://github.com/Manasidb)<br/>
 Sampada Shete: [@SampadaShete](https://github.com/SampadaShete)<br/>
 Yogita Bachhewar: [@Yogitapb](https://github.com/Yogitapb)<br/>
 
-## UI
-![first](https://user-images.githubusercontent.com/42400331/137597777-0c1067c6-938b-471a-bb40-aeb4999eb92b.png)
+## UI Overview
 ![second](https://user-images.githubusercontent.com/42400331/137597784-5c1fe39d-3c7e-4e20-a32c-379b32121316.png)
 ![fourth](https://user-images.githubusercontent.com/42400331/137597788-d74bdc05-be4c-48a4-8e3c-3792d9b62bb5.png)
-![fifth](https://user-images.githubusercontent.com/42400331/137597791-3d0cad95-179f-4468-a9bd-8fc0dc7323d3.png)
-
 
 ## Directories
 [/SanctionScreening1](https://github.com/VibavariG/Sanction-Screening/tree/main/SanctionScreening1)
