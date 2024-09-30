@@ -3,10 +3,6 @@ Perform the sanctions screening of transactions against a pre-defined list of ke
 
 ## Code Author
 Vibavari Gurunathan: [@VibavariG](https://github.com/VibavariG)<br/>
-Bhagyashree Rane: [@bhagyashree134340](https://github.com/bhagyashree134340)<br/>
-Manasi Bhandari: [@Manasidb](https://github.com/Manasidb)<br/>
-Sampada Shete: [@SampadaShete](https://github.com/SampadaShete)<br/>
-Yogita Bachhewar: [@Yogitapb](https://github.com/Yogitapb)<br/>
 
 ## UI Overview
 Full UI: [/src](https://github.com/VibavariG/Sanction-Screening/tree/main/src)
